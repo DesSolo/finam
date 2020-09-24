@@ -17,6 +17,7 @@ class ExportFinam:
     def raw(self, method, uri, params=None, data=None):
         return self.session.request(method, self.url + uri, params=params, data=data)
 
+    # https://www.finam.ru/profile/moex-akcii/mosenrg/export/
     def export(self, em, name, date_from=None, date_to=None):
         if not date_from:
             date_from = get_current_data()

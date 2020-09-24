@@ -7,7 +7,7 @@ def to_iso_time(item):
     year = item['date'][0:4]
     mont = item['date'][4:6]
     day = item['date'][6:8]
-    return f"{year}-{mont}-{day}T{item['time']}Z"
+    return f"{year}-{mont}-{day}T{item['time']}+03:00"
 
 
 def to_influx(export):

@@ -2,7 +2,7 @@
 
 #### Example
 ```shell script
-podman run --rm -e INFLUX_HOST=127.0.0.0.1 -e INFLUX_DATABASE=finam_db -e TARGETS=6:+МосЭнерго,1938060:MAIL-гдр dessolo/finam_exporter:latest
+podman run --rm -e INFLUX_HOST=127.0.0.0.1 -e INFLUX_DATABASE=finam_db -e TARGETS=6:+МосЭнерго,1938060:MAIL-гдр dessolo/finam:latest
 ```
 #### Env
 |Name|Default|Example|
