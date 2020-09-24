@@ -1,6 +1,13 @@
+import logging
 from influxdb import InfluxDBClient
 from api import ExportFinam
 import config
+
+logging.basicConfig(
+    filename="/dev/stdout",
+    level=config.LOGGING_LEVEL,
+    format="%(asctime)-15s:%(levelname)s:%(message)s"
+)
 
 
 def to_iso_time(item):
@@ -39,5 +46,8 @@ if __name__ == '__main__':
     exporter = ExportFinam(config.USER_AGENT)
     for target in config.TARGETS.split(','):
         em, name = map(lambda x: x.strip(), target.split(':'))
-        payload = to_influx(exporter.export(em, name))
-        influx_client.write_points(payload, time_precision='ms')
+        payload = to_influx(
+            exporter.export(em, name, config.DATE_FROM, config.DATE_TO)
+        )
+        result = influx_client.write_points(payload, time_precision='ms')
+        logging.info("target: %s write: %s success: %s", target, len(payload), result)

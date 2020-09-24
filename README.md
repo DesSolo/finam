@@ -7,6 +7,7 @@ podman run --rm -e INFLUX_HOST=127.0.0.0.1 -e INFLUX_DATABASE=finam_db -e TARGET
 #### Env
 |Name|Default|Example|
 |-----|------|-----|
+|LOGGING_LEVEL|20||
 |USER_AGENT|`Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0`|
 |INFLUX_HOST|-||
 |INFLUX_PORT|8086||
@@ -14,8 +15,20 @@ podman run --rm -e INFLUX_HOST=127.0.0.0.1 -e INFLUX_DATABASE=finam_db -e TARGET
 |INFLUX_PASSWORD|root||
 |INFLUX_DATABASE|-|finam_db|
 |TARGETS|-|6:+МосЭнерго,1938060:MAIL-гдр|
+|DATE_FROM|_today_|01.01.2020|
+|DATE_TO|_today_|01.01.2020|
 
-#### 
+#### Logging levels
+|Name|Int value|
+|----|---------|
+|CRITICAL|50|
+|ERROR|40|
+|WARNING|30|
+|INFO|20|
+|DEBUG|10|
+|NOTSET|0|
+
+#### Targets
 |em|cn|
 |---|---|
 |6|+МосЭнерго|
