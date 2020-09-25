@@ -7,15 +7,16 @@ podman run --rm -e INFLUX_HOST=127.0.0.1 -e INFLUX_DATABASE=finam_db -e TARGETS=
 #### Env
 |Name|Default|Example|Description|
 |-----|------|------|------|
-|LOGGING_LEVEL|20|-|
-|SLEEP_INTERVAL|0.5|-|wait between receiving requests|
+|LOGGING_LEVEL|20|[examples](https://github.com/DesSolo/finam#logging-levels)|-|
+|SLEEP_INTERVAL|0.5|-|_time in seconds_ wait between receiving single target|
+|CHECK_INTERVAL|10|-|_time in seconds_ wait between receiving all targets|
 |USER_AGENT|`Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0`|-|-|
-|INFLUX_HOST|-|-|-|
-|INFLUX_PORT|8086|-|-|
-|INFLUX_USERNAME|root|-|-|
-|INFLUX_PASSWORD|root|-|-|
-|INFLUX_DATABASE|-|finam_db|-|
-|TARGETS|-|6:+МосЭнерго,1938060:MAIL-гдр|-|
+|INFLUX_HOST|-|-|influxdb hostname or ip address|
+|INFLUX_PORT|8086|-|influxdb port|
+|INFLUX_USERNAME|root|-|influxdb auth username|
+|INFLUX_PASSWORD|root|-|influxdb auth password|
+|INFLUX_DATABASE|-|finam_db|influxdb target database name|
+|TARGETS|-|6:+МосЭнерго,1938060:MAIL-гдр|[examples](https://github.com/DesSolo/finam#targets)|
 |DATE_FROM|_today_|01.01.2020|-|
 |DATE_TO|_today_|01.01.2020|-|
 

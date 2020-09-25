@@ -45,9 +45,25 @@ def show_current_config():
     return '\n'.join(params)
 
 
+def run_forever(api_exporter, influx_db_client, targets):
+    while True:
+        for target in targets:
+            em, name = map(lambda x: x.strip(), target.split(':'))
+            payload = to_influx(
+                api_exporter.export(em, name, config.DATE_FROM, config.DATE_TO)
+            )
+            result = influx_db_client.write_points(payload, time_precision='ms')
+            logging.info("target: %s write: %s success: %s", target, len(payload), result)
+            logging.debug("start sleep: %s seconds after single target", config.SLEEP_INTERVAL)
+            sleep(config.SLEEP_INTERVAL)
+        logging.info("start sleep: %s seconds after all targets", config.SLEEP_INTERVAL)
+        sleep(config.CHECK_INTERVAL)
+
+
 if __name__ == '__main__':
     if config.LOGGING_LEVEL == logging.DEBUG:
         logging.debug(show_current_config())
+
     influx_client = InfluxDBClient(
         config.INFLUX_HOST,
         config.INFLUX_PORT,
@@ -56,12 +72,9 @@ if __name__ == '__main__':
         config.INFLUX_DATABASE
     )
     exporter = ExportFinam(config.USER_AGENT)
-    for target in config.TARGETS.split(','):
-        em, name = map(lambda x: x.strip(), target.split(':'))
-        payload = to_influx(
-            exporter.export(em, name, config.DATE_FROM, config.DATE_TO)
-        )
-        result = influx_client.write_points(payload, time_precision='ms')
-        logging.info("target: %s write: %s success: %s", target, len(payload), result)
-        logging.debug("start sleep: %s seconds", config.SLEEP_INTERVAL)
-        sleep(config.SLEEP_INTERVAL)
+
+    run_forever(
+        exporter,
+        influx_client,
+        config.TARGETS.split(',')
+    )

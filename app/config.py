@@ -20,6 +20,9 @@ LOGGING_LEVEL = int(
 SLEEP_INTERVAL = float(
     os.getenv("SLEEP_INTERVAL", 0.5)
 )
+CHECK_INTERVAL = float(
+    os.getenv("CHECK_INTERVAL", 10)
+)
 
 USER_AGENT = os.getenv('USER_AGENT', 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0')
 
