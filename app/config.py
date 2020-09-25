@@ -1,6 +1,25 @@
 import os
 
-LOGGING_LEVEL = os.getenv("LOGGING_LEVEL", 20)
+env_values = [
+    'LOGGING_LEVEL',
+    'SLEEP_INTERVAL',
+    'USER_AGENT',
+    'INFLUX_HOST',
+    'INFLUX_PORT',
+    'INFLUX_USERNAME',
+    'INFLUX_PASSWORD',
+    'INFLUX_DATABASE',
+    'TARGETS',
+    'DATE_FROM',
+    'DATE_TO'
+]
+
+LOGGING_LEVEL = int(
+    os.getenv("LOGGING_LEVEL", 20)
+)
+SLEEP_INTERVAL = float(
+    os.getenv("SLEEP_INTERVAL", 0.5)
+)
 
 USER_AGENT = os.getenv('USER_AGENT', 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0')
 

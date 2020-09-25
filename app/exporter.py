@@ -1,4 +1,5 @@
 import logging
+from time import sleep
 from influxdb import InfluxDBClient
 from api import ExportFinam
 import config
@@ -35,7 +36,18 @@ def to_influx(export):
     return response
 
 
+def show_current_config():
+    params = []
+    for value in config.env_values:
+        params.append(
+            f"{value}: {getattr(config, value)}"
+        )
+    return '\n'.join(params)
+
+
 if __name__ == '__main__':
+    if config.LOGGING_LEVEL == logging.DEBUG:
+        logging.debug(show_current_config())
     influx_client = InfluxDBClient(
         config.INFLUX_HOST,
         config.INFLUX_PORT,
@@ -51,3 +63,5 @@ if __name__ == '__main__':
         )
         result = influx_client.write_points(payload, time_precision='ms')
         logging.info("target: %s write: %s success: %s", target, len(payload), result)
+        logging.debug("start sleep: %s seconds", config.SLEEP_INTERVAL)
+        sleep(config.SLEEP_INTERVAL)

@@ -1,4 +1,5 @@
 import re
+import logging
 from datetime import datetime
 import requests
 
@@ -15,10 +16,12 @@ class ExportFinam:
         self.session.headers = requests.sessions.cookiejar_from_dict({'User-Agent': user_agent})
 
     def raw(self, method, uri, params=None, data=None):
+        logging.debug('raw request method: "%s" uri: "%s" params: "%s" data: "%s"', method, uri, params, data)
         return self.session.request(method, self.url + uri, params=params, data=data)
 
     # https://www.finam.ru/profile/moex-akcii/mosenrg/export/
     def export(self, em, name, date_from=None, date_to=None):
+        logging.debug('call export em: "%s" name: "%s"', em, name)
         if not date_from:
             date_from = get_current_data()
         if not date_to:
@@ -51,14 +54,15 @@ class ExportFinam:
             'at': '1'
         }
         response = self.raw('GET', '/export9.out', params=params)
+        logging.debug('response code: %d headers: "%s"', response.status_code, response.headers)
         data = response.text.replace('\r', '').split('\n')
         header = re.sub('[<>]', '', data[0]).lower().split(',')
         for line in data[1:]:
             if not line:
+                logging.debug('line is empty')
                 continue
             item = {}
             for key, value in zip(header, line.split(',')):
                 item[key] = value
+            logging.debug('line: "%s"', item)
             yield item
-
-

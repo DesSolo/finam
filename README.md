@@ -2,21 +2,22 @@
 
 #### Example
 ```shell script
-podman run --rm -e INFLUX_HOST=127.0.0.0.1 -e INFLUX_DATABASE=finam_db -e TARGETS=6:+МосЭнерго,1938060:MAIL-гдр dessolo/finam:latest
+podman run --rm -e INFLUX_HOST=127.0.0.1 -e INFLUX_DATABASE=finam_db -e TARGETS=6:+МосЭнерго,1938060:MAIL-гдр dessolo/finam:latest
 ```
 #### Env
-|Name|Default|Example|
-|-----|------|-----|
-|LOGGING_LEVEL|20||
-|USER_AGENT|`Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0`|
-|INFLUX_HOST|-||
-|INFLUX_PORT|8086||
-|INFLUX_USERNAME|root||
-|INFLUX_PASSWORD|root||
-|INFLUX_DATABASE|-|finam_db|
-|TARGETS|-|6:+МосЭнерго,1938060:MAIL-гдр|
-|DATE_FROM|_today_|01.01.2020|
-|DATE_TO|_today_|01.01.2020|
+|Name|Default|Example|Description|
+|-----|------|------|------|
+|LOGGING_LEVEL|20|-|
+|SLEEP_INTERVAL|0.5|-|wait between receiving requests|
+|USER_AGENT|`Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0`|-|-|
+|INFLUX_HOST|-|-|-|
+|INFLUX_PORT|8086|-|-|
+|INFLUX_USERNAME|root|-|-|
+|INFLUX_PASSWORD|root|-|-|
+|INFLUX_DATABASE|-|finam_db|-|
+|TARGETS|-|6:+МосЭнерго,1938060:MAIL-гдр|-|
+|DATE_FROM|_today_|01.01.2020|-|
+|DATE_TO|_today_|01.01.2020|-|
 
 #### Logging levels
 |Name|Int value|
